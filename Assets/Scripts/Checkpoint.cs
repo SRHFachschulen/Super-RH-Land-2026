@@ -18,4 +18,11 @@ public class Checkpoint : MonoBehaviour{
             oc.SetCheckpoint(this);
         }
     }
+
+    void OnDrawGizmosSelected(){
+        if (RespawnPoint != null){
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(RespawnPoint.position,0.5f);
+        }
+    }
 }

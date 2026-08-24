@@ -5,6 +5,7 @@ public class OoliController : MonoBehaviour{
     public float speed = 5;
         
     public CharacterController cc;
+    public Animator animator;
     
     public float verticalVelocity = 0;
     public float gravity = 9.81f;
@@ -15,7 +16,7 @@ public class OoliController : MonoBehaviour{
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start(){
         cc = GetComponent<CharacterController>();
-
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -32,6 +33,7 @@ public class OoliController : MonoBehaviour{
         // Vertical Movement (Quasi Simulation)
         if (cc.isGrounded && verticalVelocity < 0){
             verticalVelocity = 0;
+            animator.Play("idle");
         }
         
         verticalVelocity -= gravity * Time.deltaTime;
@@ -39,6 +41,7 @@ public class OoliController : MonoBehaviour{
         bool jumpPressed = InputSystem.actions.FindAction("Jump").WasPressedThisFrame();
         if (jumpPressed && cc.isGrounded){
             verticalVelocity += jumpPower;
+            animator.Play("jump");
         }
 
         movement.y = verticalVelocity;
