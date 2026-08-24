@@ -19,7 +19,7 @@ public class OoliController : MonoBehaviour{
     }
 
     // Update is called once per frame
-    void Update(){
+    void FixedUpdate(){
         // Horizontal Movement (Absolute)
         Vector2 input = InputSystem.actions.FindAction("Move").ReadValue<Vector2>();
         Vector3 movement = new Vector3(input.x, 0, input.y);
@@ -59,6 +59,6 @@ public class OoliController : MonoBehaviour{
     public void Respawn(){
         transform.position = lastCheckpoint.RespawnPoint.position;
         verticalVelocity = 0;
-        
+        Physics.SyncTransforms();
     }
 }
