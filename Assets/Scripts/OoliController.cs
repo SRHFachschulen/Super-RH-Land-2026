@@ -24,6 +24,8 @@ public class OoliController : MonoBehaviour{
         // Horizontal Movement (Absolute)
         Vector2 input = InputSystem.actions.FindAction("Move").ReadValue<Vector2>();
         Vector3 movement = new Vector3(input.x, 0, input.y);
+        // rotate around up axis to match camera rotation
+        movement = Quaternion.Euler(0, Camera.main.transform.eulerAngles.y, 0) * movement;
         movement *= Time.deltaTime * speed;
 
         if (input.sqrMagnitude > 0){
