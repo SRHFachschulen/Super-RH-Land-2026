@@ -14,7 +14,7 @@ public class PeriodicSpikes : MonoBehaviour{
 
     // Update is called once per frame
     void Update(){
-        float sinVal = Mathf.Sin(phaseShift + (Time.time * 2 * Mathf.PI * frequency));
+        float sinVal = Mathf.Sin((phaseShift + (Time.time * frequency)* 2 * Mathf.PI));
         var childLocalPosition = theSpikes.localPosition;
         childLocalPosition.y += spikeSpeed * Time.deltaTime * (sinVal > 0 ? 1 : -1);
         childLocalPosition.y = Mathf.Clamp(childLocalPosition.y, downY, upY);

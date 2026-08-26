@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,8 +9,10 @@ public class OoliController : MonoBehaviour{
     public Animator animator;
     
     public float verticalVelocity = 0;
-    public float gravity = 9.81f;
-    public float jumpPower = 20;
+    public float gravity = 0.4f;
+    public float jumpPower = 0.1250f;
+    
+    public float deathPlaneY = -10;
 
     [SerializeField] private Checkpoint lastCheckpoint;
     
@@ -50,7 +53,7 @@ public class OoliController : MonoBehaviour{
         
         cc.Move(movement);
 
-        if (transform.position.y < -10){
+        if (transform.position.y < deathPlaneY){
             Respawn();
         }
     }
@@ -65,5 +68,11 @@ public class OoliController : MonoBehaviour{
         transform.position = lastCheckpoint.RespawnPoint.position;
         verticalVelocity = 0;
         Physics.SyncTransforms();
+    }
+
+    private void OnDrawGizmos(){
+        Gizmos.color= new Color(1, 0, 0, 0.5f);
+        Vector3 refPos = Camera.current.transform.position + Camera.current.transform.forward * 10;
+        Gizmos.DrawCube(new Vector3(refPos.x, deathPlaneY, refPos.z), new Vector3(20, 0.1f, 20));
     }
 }
